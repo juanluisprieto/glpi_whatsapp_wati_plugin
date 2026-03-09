@@ -1,6 +1,8 @@
-# 🚀 WATI WhatsApp Plugin for GLPI 10
+# 🚀 WATI WhatsApp Plugin for GLPI 11
 
-This plugin transforms your **GLPI 10** instance into an omnichannel support platform, enabling real-time, bidirectional communication between technicians and requesters directly via the **WATI API**.
+WATI Subsciption link: https://affiliates.wati.io/mlfb20b6xm6j
+
+This plugin transforms your **GLPI 10 / 11** instance into an omnichannel support platform, enabling real-time, bidirectional communication between technicians and requesters directly via the **WATI API**.
 
 ---
 
