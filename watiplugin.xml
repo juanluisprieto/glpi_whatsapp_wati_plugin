@@ -2,7 +2,7 @@
             <name>GLPI Wati Plugin</name>
             <key>watiplugin</key>
             <state>stable</state> <!-- stable | unstable | beta | alpha -->
-            <logo>https://www.globalsoft.lat/web/image/product.template/275/image_512/Plugin%20GLPI%20para%20Wati?unique=4936d27</logo>
+            <logo>https://www.globalsoft.com.mx/web/image/17598-0d050c12/Wati%20%282%29.webp</logo>
             <description>
                <short>
                   <en>This plugin integrates **GLPI 10** with the **WATI** API, enabling intelligent two-way communication between technicians and requesters directly via WhatsApp.</en>
