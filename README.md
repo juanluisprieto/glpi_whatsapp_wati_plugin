@@ -1,9 +1,3 @@
-¡Claro que sí! Tu plugin ha crecido mucho: pasó de ser un simple sistema de notificaciones a un **Bot Interactivo de Soporte**. El README debe reflejar ese poder para que cualquier usuario o cliente potencial entienda que esto es una solución completa de autoservicio.
-
-Aquí tienes la versión actualizada del **README.md**:
-
----
-
 # WATI WhatsApp Plugin para GLPI 10
 
 Este plugin integra **GLPI 10** con la API de **WATI**, permitiendo una comunicación bidireccional inteligente entre técnicos y solicitantes directamente a través de WhatsApp.
