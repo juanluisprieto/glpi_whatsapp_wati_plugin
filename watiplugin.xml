@@ -1,0 +1,56 @@
+<root>
+            <name>GLPI Wati Plugin</name>
+            <key>watiplugin</key>
+            <state>stable</state> <!-- stable | unstable | beta | alpha -->
+            <logo>https://www.globalsoft.lat/web/image/product.template/275/image_512/Plugin%20GLPI%20para%20Wati?unique=4936d27</logo>
+            <description>
+               <short>
+                  <en>This plugin integrates **GLPI 10** with the **WATI** API, enabling intelligent two-way communication between technicians and requesters directly via WhatsApp.</en>
+                  <lang>...</lang>
+               </short>
+               <long>
+                  <en>This plugin integrates **GLPI 10** with the **WATI** API, enabling intelligent two-way communication between technicians and requesters directly via WhatsApp.</en>
+                  <lang>...</lang>
+               </long>
+            </description>
+            <homepage>https://www.globalsoft.lat/r/lEn</homepage>
+            <download>https://github.com/juanluisprieto/glpi_whatsapp_wati_plugin</download>
+            <issues>https://github.com/juanluisprieto/glpi_whatsapp_wati_plugin/issues</issues>
+            <readme>https://github.com/juanluisprieto/glpi_whatsapp_wati_plugin/readme.txt</readme>
+            <authors>
+               <author>Your name</author>
+            </authors>
+            <versions>
+               <version>
+                  <num>1.0</num>
+                  <compatibility>~9.4.0</compatibility>
+                  <download_url>https://github.com/juanluisprieto/glpi_whatsapp_wati_plugin/releases/download/1.0/glpi_wati_plugin-1.0.tar.gz</download_url>
+               </version>
+            </versions>
+            <langs>
+               <lang>en_GB</lang>
+               <lang>...</lang>
+            </langs>
+            <license>GPL v2+</license>
+            <tags>
+               <en>
+                  <tag>glpi</tag>
+               </en>
+               <lang>
+                  <tag>wati</tag>
+               </lang>
+               <lang>
+                  <tag>whatsapp</tag>
+               </lang>
+               <lang>
+                  <tag>service desk</tag>
+               </lang>
+            </tags>
+            <screenshots>
+               <screenshot>https://github.com/juanluisprieto/glpi_whatsapp_wati_plugin/blob/main/screenshots/GLPI%20WATI.png?raw=true</screenshot>
+               <screenshot>https://github.com/juanluisprieto/glpi_whatsapp_wati_plugin/blob/main/screenshots/answer_glpi.png?raw=true</screenshot>
+               <screenshot>https://github.com/juanluisprieto/glpi_whatsapp_wati_plugin/blob/main/screenshots/configuration.jpeg?raw=true</screenshot>
+               <screenshot>https://github.com/juanluisprieto/glpi_whatsapp_wati_plugin/blob/main/screenshots/opened_tickets.png?raw=true</screenshot>
+               <screenshot>https://github.com/juanluisprieto/glpi_whatsapp_wati_plugin/blob/main/screenshots/requirement_type.png?raw=true</screenshot>
+            </screenshots>
+         </root>
