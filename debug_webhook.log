@@ -1,0 +1,113 @@
+[2026-02-27 12:28:04] --- Inicio de petición recibida ---
+[2026-02-27 12:28:04] JSON Recibido: { "waId": "8182015999", "text": "Hola, esto es una prueba desde el comando cURL", "senderName": "Usuario Prueba" }
+[2026-02-27 12:28:04] waId: 8182015999
+[2026-02-27 12:28:04] userObj: 8182015999
+ERROR CRÍTICO: Class "User" not found
+#0 {main}
+[2026-02-27 12:28:04] --- Fin de la petición ---
+[2026-02-27 12:29:29] --- Inicio de petición recibida ---
+[2026-02-27 12:29:29] JSON Recibido: { "waId": "8182015999", "text": "Hola, esto es una prueba desde el comando cURL", "senderName": "Usuario Prueba" }
+[2026-02-27 12:29:29] waId: 8182015999
+[2026-02-27 12:29:29] userObj: 8182015999
+ERROR CRÍTICO: Class "User" not found
+#0 {main}
+[2026-02-27 12:29:29] --- Fin de la petición ---
+[2026-02-27 12:29:45] --- Inicio de petición recibida ---
+[2026-02-27 12:29:45] JSON Recibido: { "waId": "8182015999", "text": "Hola, esto es una prueba desde el comando cURL", "senderName": "Usuario Prueba" }
+[2026-02-27 12:29:45] waId: 8182015999
+[2026-02-27 12:29:45] userObj: 8182015999
+ERROR CRÍTICO: Class "User" not found
+#0 {main}
+[2026-02-27 12:29:45] --- Fin de la petición ---
+[2026-02-27 12:29:56] --- Inicio de petición recibida ---
+[2026-02-27 12:29:56] JSON Recibido: { "waId": "8182015999", "text": "Hola, esto es una prueba desde el comando cURL", "senderName": "Usuario Prueba" }
+[2026-02-27 12:29:56] waId: 8182015999
+[2026-02-27 12:29:56] userObj: 8182015999
+ERROR CRÍTICO: Class "User" not found
+#0 {main}
+[2026-02-27 12:29:56] --- Fin de la petición ---
+[2026-02-27 12:32:39] EXCEPCIÓN: Class "User" not found
+[2026-02-27 12:35:06] Datos recibidos: { "waId": "8182015999", "text": "Hola, esto es una prueba desde el comando cURL", "senderName": "Usuario Prueba" }
+[2026-02-27 12:35:06] Usuario detectado: ID 56
+[2026-02-27 12:35:08] ÉXITO: Ticket creado con ID 24257
+[2026-02-27 12:36:08] Datos recibidos: { "waId": "8182015999", "text": "Hola, esto es una prueba desde el comando cURL", "senderName": "Usuario Prueba" }
+[2026-02-27 12:36:08] EXCEPCIÓN: Class "User" not found
+[2026-02-27 12:36:08] Línea: 44
+[2026-02-27 12:36:13] Datos recibidos: { "waId": "8182015999", "text": "Hola, esto es una prueba desde el comando cURL", "senderName": "Usuario Prueba" }
+[2026-02-27 12:36:13] EXCEPCIÓN: Class "User" not found
+[2026-02-27 12:36:13] Línea: 44
+[2026-02-27 12:37:29] Datos recibidos: { "waId": "8182015999", "text": "Hola, esto es una prueba desde el comando cURL", "senderName": "Usuario Prueba" }
+[2026-02-27 12:37:29] EXCEPCIÓN: Class "User" not found
+[2026-02-27 12:37:29] Línea: 44
+[2026-02-27 12:37:33] Datos recibidos: { "waId": "8182015999", "text": "Hola, esto es una prueba desde el comando cURL", "senderName": "Usuario Prueba" }
+[2026-02-27 12:37:33] Usuario detectado: ID 56
+[2026-02-27 12:37:34] ÉXITO: Ticket creado con ID 24258
+[2026-02-27 12:42:12] Datos recibidos: { "waId": "8182015999", "text": "Hola, esto es una prueba desde el comando cURL", "senderName": "Usuario Prueba" }
+[2026-02-27 12:42:12] EXCEPCIÓN: Class "User" not found
+[2026-02-27 12:42:12] Línea: 38
+[2026-02-27 12:42:19] Datos recibidos: { "waId": "8182015999", "text": "Hola, esto es una prueba desde el comando cURL", "senderName": "Usuario Prueba" }
+[2026-02-27 12:42:19] Usuario detectado: ID 56
+[2026-02-27 12:42:20] ÉXITO: Ticket creado con ID 24259
+[2026-02-27 16:11:40] Datos recibidos: { "waId": "8182015999", "text": "Hola, esto es una prueba desde el comando cURL", "senderName": "Usuario Prueba" }
+[2026-02-27 16:11:40] Usuario detectado: ID 56
+[2026-02-27 16:11:41] ÉXITO: Ticket creado con ID 24264
+[2026-02-27 16:26:17] Datos recibidos: { "waId": "8182015999", "text": "Hola, esto es una prueba desde el comando cURL", "senderName": "Usuario Prueba" }
+[2026-02-27 16:26:17] Usuario detectado: ID 56
+[2026-02-27 16:26:20] ÉXITO: Ticket creado con ID 24265
+[2026-02-27 16:59:15] Datos recibidos: {"waId":"8182015999","text":"\"prueba de mensaje\"","senderName":"Juan Luis"}
+[2026-02-27 16:59:15] Usuario detectado: ID 56
+[2026-02-27 16:59:16] ÉXITO: Ticket creado con ID 24266
+[2026-02-27 17:12:57] Datos recibidos: { "waId": "8182015999", "text": "Hola, esto es una prueba desde el comando cURL", "senderName": "Usuario Prueba" }
+[2026-02-27 17:12:57] Usuario detectado: ID 56
+[2026-02-27 17:13:00] ÉXITO: Ticket creado con ID 24268
+[2026-02-27 17:18:04] Datos recibidos: { "waId": "8182015999", "text": "Hola, esto es una prueba desde el comando cURL", "senderName": "Usuario Prueba" }
+[2026-02-27 17:18:04] Usuario detectado: ID 56
+[2026-02-27 17:18:43] Datos recibidos: { "waId": "8182015999", "text": "Hola, esto es una prueba desde el comando cURL 123", "senderName": "Usuario Prueba" }
+[2026-02-27 17:18:43] Usuario detectado: ID 56
+[2026-02-27 17:23:21] Datos recibidos: { "waId": "8182015999", "text": "Hola, esto es una prueba desde el comando cURL", "senderName": "Usuario Prueba" }
+[2026-02-27 17:23:21] Usuario detectado: ID 56
+[2026-02-27 17:26:39] Datos recibidos: { "waId": "8182015999", "text": "Hola, esto es una prueba desde el comando cURL 123", "senderName": "Usuario Prueba" }
+[2026-02-27 17:26:39] Usuario detectado: ID 56
+[2026-02-27 17:45:07] Datos recibidos: {"waId":"8182015999","text":"\"prueba de mensaje\"","senderName":"Juan Luis"}
+[2026-02-27 17:45:07] Usuario detectado: ID 56
+[2026-02-27 17:57:12] Datos recibidos: {"waId":"8182015999","text":"hola","senderName":"{{senderName}}"}
+[2026-02-27 17:57:12] Usuario detectado: ID 56
+[2026-02-27 17:57:40] Datos recibidos: { "waId": "8182015999", "text": "Hola, esto es una prueba desde el comando cURL 123", "senderName": "Usuario Prueba" }
+[2026-02-27 17:57:40] Usuario detectado: ID 56
+[2026-02-27 18:01:02] Datos recibidos: {"waId":"5218182015999","text":"Prueba de registro desde whatsapp","senderName":"{{senderName}}"}
+[2026-02-27 18:12:29] Datos recibidos: {"waId":"5218182015999","text":"prueba de registro de ticket desde plugin","senderName":"Prieto Juan Luis usted tiene una nueva asignación"}
+[2026-02-27 18:14:59] Datos recibidos: {"waId":"5218182015999","text":"Prueba","senderName":"Prieto Juan Luis usted tiene una nueva asignación"}
+[2026-02-27 18:20:27] Datos recibidos: {"waId":"5218182015999","text":"Prueba 001","senderName":"Prieto Juan Luis usted tiene una nueva asignación"}
+[2026-02-27 18:31:29] Datos recibidos: {"waId":"5218182015999","text":"no funciona mi computadora","senderName":"Juan Luis Prieto"}
+[2026-02-27 19:03:25] Datos recibidos: {"waId":"5218182015999","text":"No funciona mi computadora","senderName":"Juan Luis Prieto"}
+[2026-02-27 19:12:31] Datos recibidos: {"waId":"5218182015999","text":"Tengo problemas con mi computadora","senderName":"Juan Luis Prieto"}
+[2026-02-27 19:16:25] Datos recibidos: { "waId": "8182015999", "text": "Hola, esto es una prueba desde el comando cURL", "senderName": "Usuario Prueba" }
+[2026-02-27 19:16:25] Usuario waId: ID  8182015999
+[2026-02-27 19:16:25] Usuario detectado: ID 56
+[2026-02-27 19:18:52] Datos recibidos: {"waId":"5218182015999","text":"Registro de pruebas de mensajes","senderName":"Juan Luis Prieto"}
+[2026-02-27 19:18:52] Usuario waId: ID  5218182015999
+[2026-02-27 19:21:50] Datos recibidos: {"waId":"5218182015999","text":"Prueba de registro con usuario","senderName":"Juan Luis Prieto"}
+[2026-02-27 19:21:50] Usuario waId: ID  5218182015999
+[2026-02-27 19:21:50] Usuario detectado: ID 56
+[2026-02-27 19:29:01] Datos recibidos: {"waId":"5218182015999","text":"Prueba de registro de plugin","senderName":"Juan Luis Prieto"}
+[2026-02-27 19:29:01] Usuario waId: ID  5218182015999
+[2026-02-27 19:29:01] Usuario detectado: ID 56
+[2026-02-27 19:35:54] Followup
+[2026-02-27 19:40:09] Datos recibidos: {"waId":"5218119227372","text":"Quiero levantar un ticket","senderName":"Arzate Rafael usted tiene una nueva asignación"}
+[2026-02-27 19:40:09] Usuario waId: ID  5218119227372
+[2026-02-27 19:40:09] Followup
+[2026-02-27 19:41:14] Datos recibidos: {"waId":"5218119227372","text":"Quiero levantar un ticket","senderName":"Arzate Rafael usted tiene una nueva asignación"}
+[2026-02-27 19:41:14] Usuario waId: ID  5218119227372
+[2026-02-27 19:42:45] Followup
+[2026-02-27 19:45:26] Followup
+[2026-02-27 19:46:17] Followup
+[2026-02-27 19:48:18] Followup
+[2026-02-27 20:59:50] Datos recibidos: { "waId": "8182015999", "text": "Hola, esto es una prueba desde el comando cURL", "senderName": "Usuario Prueba" }
+[2026-02-27 20:59:50] Usuario waId: ID  8182015999
+[2026-02-27 20:59:50] Usuario detectado: ID 56
+[2026-02-27 21:00:46] Datos recibidos: { "waId": "8182015999", "text": "Hola, esto es una prueba desde el comando cURL", "senderName": "Usuario Prueba" }
+[2026-02-27 21:00:46] Usuario waId: ID  8182015999
+[2026-02-27 21:00:46] Usuario detectado: ID 56
+[2026-02-27 21:04:54] Datos recibidos: { "waId": "8182015999", "text": "Hola, esto es una prueba desde el comando cURL", "senderName": "Usuario Prueba" }
+[2026-02-27 21:04:54] Usuario waId: ID  8182015999
+[2026-02-27 21:04:54] Usuario detectado: ID 56
