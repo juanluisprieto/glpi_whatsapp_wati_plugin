@@ -80,29 +80,17 @@ function plugin_watiplugin_call_wati_api($phone, $message, $config, $ticket_id,$
     }
 }
 
-function plugin_watiplugin_notification_assign(Ticket $ticket) {
+function plugin_watiplugin_notification_assign($ticket) {
     global $DB;
-    Toolbox::logInFile("watiplugin", "Error crítico Ticket: " . $ticket->fields['id'] . "\n");
-    Toolbox::logInFile("watiplugin", "Error crítico Ticket ticket->updates: " .json_encode($ticket->updates) . "\n");
-    Toolbox::logInFile("watiplugin", "Error crítico Ticket ticket->input['_users_id_assign']: " .json_encode($ticket->input['_users_id_assign']) . "\n");
-    Toolbox::logInFile("watiplugin", "Error crítico _itilactors:".json_encode($ticket->getITILActors()));
-    if (!($ticket instanceof Ticket)) {
-        return;
-    }
-    Toolbox::logInFile("watiplugin", "Error crítico Type:".$ticket->getType());  
-    // 2. Si quieres una segunda capa de seguridad usando el método nativo de GLPI:
-    if ($ticket->getType() !== 'Ticket') {
-        Toolbox::logInFile("watiplugin", "Error crítico Ticket: Rechaza" . $ticket->fields['id'] . "\n");
+    if (!($ticket instanceof Ticket) || $ticket->getType() !== 'Ticket') {
         return;
     }
 
-    if (isset($ticket->input['_users_id_assign']) && is_array($ticket->input['_users_id_assign']) && count($ticket->input['_users_id_assign']) > 0) {
-        Toolbox::logInFile("watiplugin", "Error crítico Ticket: Tiene asignación manual, no se procesa la notificación automática para el Ticket #" . $ticket->fields['id'] . "\n");
-        return;
-    }
+    Toolbox::logInFile("watiplugin", "Hook de asignación disparado para Ticket #" . $ticket->fields['id'] . "\n");
 
-    Toolbox::logInFile("watiplugin", "Error crítico Type:".$ticket->getType());
-    // 2. Obtener el usuario que está realizando la asignación (Sesión actual)
+    // El hook se dispara desde updateActors() — los actores ya están guardados en DB.
+    // No se puede leer _users_id_assign desde $ticket->input en este punto del ciclo de vida.
+    // Se consulta directamente la DB para obtener los técnicos asignados.
     $current_user_id = Session::getLoginUserID();
     $assigner_name = "Sistema / Automático";
     if ($current_user_id) {
@@ -111,7 +99,6 @@ function plugin_watiplugin_notification_assign(Ticket $ticket) {
             $assigner_name = $assigner->getFriendlyName();
         }
     }
-    Toolbox::logInFile("watiplugin", "Error crítico assigner_name:".$assigner_name);
     $ticket_id = $ticket->fields['id'];
     $assigned_technicians = [];
     $iterator = $DB->request([
@@ -119,55 +106,44 @@ function plugin_watiplugin_notification_assign(Ticket $ticket) {
         'FROM'   => 'glpi_tickets_users',
         'WHERE'  => [
             'tickets_id' => $ticket_id,
-            'type'       => 2 
+            'type'       => 2
         ]
     ]);
     foreach ($iterator as $data) {
-        Toolbox::logInFile("watiplugin", "Error ---data :".json_encode($data)." ");   
         if ($data['users_id'] > 0) {
             $assigned_technicians[] = $data['users_id'];
         }
     }
-    // Si no hay técnicos, no hay nada que notificar
     if (empty($assigned_technicians)) {
-        Toolbox::logInFile("watiplugin", "No se encontraron técnicos asignados para el Ticket #$ticket_id\n");
+        Toolbox::logInFile("watiplugin", "Ticket #$ticket_id: sin técnicos asignados, se omite notificación.\n");
         return;
     }
-    Toolbox::logInFile("watiplugin", "Error assigned_technicians :".json_encode($assigned_technicians)." ");   
 
-    
+    $config = new PluginWatipluginConfig();
+    $config->getFromDB(1);
+
     // 3. Iterar sobre cada técnico asignado
     $technician = new User();
     foreach ($assigned_technicians as $tech_id) {
         try {
             if ($tech_id <= 0) continue;
-            Toolbox::logInFile("watiplugin", "Error crítico tech_id:".$tech_id." ");    
-        
-            if ($technician->getFromDB($tech_id)) {        
-            // Prioridad Móvil > Teléfono
+
+            if ($technician->getFromDB($tech_id)) {
             $phone = !empty($technician->fields['mobile']) ? $technician->fields['mobile'] : $technician->fields['phone'];
             if (!empty($phone)) {
-                Toolbox::logInFile("watiplugin", "Error crítico phone:".$phone); 
-                $config = new PluginWatipluginConfig();
-                $config->getFromDB(1);
-                $ticket_id = $ticket->fields['id'];
-                $subject   = $ticket->fields['name'];
-                $priority  = Ticket::getPriorityName($ticket->fields['priority']);
-                $base_url  = rtrim($config->fields['glpi_base_url'], '/');
-                $url       = $base_url . "/index.php?redirect=ticket_$ticket_id";
+                $subject  = $ticket->fields['name'];
+                $priority = Ticket::getPriorityName($ticket->fields['priority']);
 
-                // 4. Construir mensaje enriquecido
-                $mensaje  = "🛠️ *Asignación de Ticket #$ticket_id* 🛠️";            
+                $mensaje  = "🛠️ *Asignación de Ticket #$ticket_id* 🛠️";
                 $mensaje .= "Se te ha asignado un ticket con la siguiente información: ";
                 $mensaje .= "👤 *Asignado por:* $assigner_name ";
                 $mensaje .= "📌 *Asunto:* $subject ";
-                $mensaje .= "⚠️ *Prioridad:* $priority ";                
+                $mensaje .= "⚠️ *Prioridad:* $priority ";
                 $mensaje .= "_Por favor, revisa los detalles en GLPI._";
-                 Toolbox::logInFile("watiplugin", "Error crítico mensaje:".$mensaje);    
+
                 $name = !empty($technician->fields['firstname']) ? $technician->fields['firstname'] : $technician->fields['name'];
-                Toolbox::logInFile("watiplugin", "Error crítico name:".$name);
-                // 5. Enviar vía WATI
-                plugin_watiplugin_call_wati_api($phone, $mensaje, $config, $ticket->fields['id'],$name);
+                Toolbox::logInFile("watiplugin", "Ticket #$ticket_id: enviando notificación a $name ($phone)\n");
+                plugin_watiplugin_call_wati_api($phone, $mensaje, $config, $ticket_id, $name);
                 
             }
         }
@@ -188,7 +164,7 @@ function plugin_watiplugin_clean_content($content) {
     return trim($content);
 }
 
-function plugin_watiplugin_notification_followup(ITILFollowup $followup) {
+function plugin_watiplugin_notification_followup($followup) {
     global $DB;
     // 1. Verificación de tipo y privacidad
     if ($followup->fields['itemtype'] !== 'Ticket' || $followup->fields['is_private'] == 1) {

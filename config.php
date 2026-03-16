@@ -25,4 +25,3 @@ $config = new PluginWatipluginConfig();
 $config->showFormConfig();
 
 Html::footer();
-

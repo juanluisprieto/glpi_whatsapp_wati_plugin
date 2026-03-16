@@ -374,20 +374,6 @@ function getUserTickets($phone) {
     }  
     
 }
-function plugin_watiplugin_clean_content($content) {
-    // 1. Decodificar entidades HTML (ej: &nbsp; se vuelve un espacio, &aacute; se vuelve á)
-    $content = html_entity_decode($content, ENT_QUOTES, 'UTF-8');
-
-    // 2. Reemplazar etiquetas de salto de línea <br> o <p> por saltos de línea reales (\n)
-    // Esto mantiene la estructura del mensaje en WhatsApp
-    $content = preg_replace('/<(br|p|div)[^>]*>/i', "\n", $content);
-
-    // 3. Eliminar todas las demás etiquetas HTML (tags)
-    $content = strip_tags($content);
-
-    // 4. Limpiar espacios en blanco extra al inicio y al final
-    return trim($content);
-}
 function formatTicketsForWhatsApp($tickets) {
     if (empty($tickets)) {
         return "🔍 No encontramos tickets abiertos a tu nombre.";

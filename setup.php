@@ -1,12 +1,18 @@
 <?php
 define('PLUGIN_WATIPLUGIN_VERSION', '2.1.1');
+
+// GLPI 11 ya no auto-incluye hook.php, hay que cargarlo explícitamente
+include_once(__DIR__ . '/hook.php');
+
 function plugin_init_watiplugin() {
    global $PLUGIN_HOOKS;
    $PLUGIN_HOOKS['csrf_compliant']['watiplugin'] = true;
    $PLUGIN_HOOKS['item_update']['watiplugin']['Ticket'] = 'plugin_watiplugin_notification_assign';
    $PLUGIN_HOOKS['item_add']['watiplugin']['ITILFollowup'] = 'plugin_watiplugin_notification_followup';
+   // GLPI 11 puede usar clase con namespace
+   $PLUGIN_HOOKS['item_add']['watiplugin']['Glpi\\Itil\\Followup'] = 'plugin_watiplugin_notification_followup';
    if (Session::haveRight("config", UPDATE)) {
-      $PLUGIN_HOOKS['config_page']['watiplugin'] = 'config.php';
+      $PLUGIN_HOOKS['config_page']['watiplugin'] = 'front/config.php';
    }
 }
 function plugin_version_watiplugin() {

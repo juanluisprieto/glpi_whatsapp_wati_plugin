@@ -22,10 +22,12 @@ class PluginWatipluginConfig extends CommonDBTM {
    }
 
 
-   function showFormConfig() {
+   function showFormConfig($target = null) {
       $this->getFromDB(1);
-      
-      $target = Toolbox::getItemTypeFormURL('PluginWatipluginConfig');
+
+      if ($target === null) {
+         $target = Toolbox::getItemTypeFormURL('PluginWatipluginConfig');
+      }
 
       echo "<form action='".$target."' method='post'>";
       echo "<table class='tab_cadre_fixe'>";
