@@ -80,6 +80,99 @@ function plugin_watiplugin_call_wati_api($phone, $message, $config, $ticket_id,$
     }
 }
 
+
+function plugin_watiplugin_call_meta_api($phone, $message, $config, $ticket_id,$name) {
+    Toolbox::logInFile("watiplugin", "Error crítico: No se pudo conectar con la API de Meta json.");
+    $baseUrl = rtrim($config->fields['meta_url'], '/') . "/messages";
+    Toolbox::logInFile("watiplugin", "Error crítico: No se pudo conectar con la API de Meta json.\n". $baseUrl);
+    $utl_ticket =  $ticket_id;
+    $token = $config->fields['meta_token'];
+    $parameters = array(
+                "messaging_product" => "whatsapp",
+                "to" => $phone,
+                "type" => "template",
+                "template" => array(
+                    "name" => $config->fields['wati_template_name'],
+                    "language" => array(
+                        "code" => "es_MX"
+                    ),
+                    "components" => array(
+                        // --- PRIMER COMPONENTE: BODY ---
+                        array(
+                            "type" => "body",
+                            "parameters" => array(
+                                array(
+                                    "type" => "text",
+                                    "parameter_name" => "name",
+                                    "text" => $name
+                                ),
+                                array(
+                                    "type" => "text",
+                                    "parameter_name" => "ticket",
+                                    "text" => $ticket_id." ".$message
+                                ),
+                            )
+                        ), // Esta coma separa el Body del Button
+                        // --- SEGUNDO COMPONENTE: BUTTON ---
+                        array(
+                            "type" => "button",
+                            "sub_type" => "url",
+                            "index" => 0,
+                            "parameters" => array(
+                                array(
+                                    "type" => "text",
+                                    "text" => $utl_ticket
+                                )
+                            ) // Cierre de parameters del botón
+                        ) // Cierre del array del botón
+                    ) // Cierre de components
+                ) // Cierre de template
+            ); // Cierre final de $parameters    
+    $json_data = json_encode($parameters);
+   
+     Toolbox::logInFile("watiplugin", "Error crítico: No se pudo conectar con la API de Meta json.\n". $json_data);
+    // --- BLOQUE DE DEPURACIÓN ---
+    $headers = [
+        "Authorization: Bearer " . $token,
+        "Content-Type: application/json",
+        "Content-Length: " . strlen($json_data)
+    ];
+
+    // Guardamos en el log qué estamos mandando exactamente
+    $debug_info = "\n--- INICIO PETICIÓN DEBUG ---\n";
+    $debug_info .= "URL: $baseUrl\n";
+    $debug_info .= "HEADERS: " . implode(" | ", $headers) . "\n";
+    $debug_info .= "BODY: $json_data\n";
+    $debug_info .= "--- FIN PETICIÓN ---\n";
+    Toolbox::logInFile("watiplugin", $debug_info);
+    // --- FIN BLOQUE DE DEPURACIÓN ---
+
+    $options = [
+        'http' => [
+            'method'  => 'POST',
+            'header'  => $headers,
+            'content' => $json_data,
+            'ignore_errors' => true // Permite leer el cuerpo del error 400/401/404
+        ]
+    ];
+    $context = stream_context_create($options);
+    $response = file_get_contents($baseUrl, false, $context);
+    $status_line = isset($http_response_header[0]) ? $http_response_header[0] : "No response";
+    // 5. Manejo de logs para depuración
+    if ($response === false) {
+        Toolbox::logInFile("watiplugin", "Error crítico: No se pudo conectar con la API de Meta.\n");
+    } else {
+        $res_decoded = json_decode($response, true);
+        if (isset($res_decoded['result']) && $res_decoded['result'] === 'success') {
+            Toolbox::logInFile("watiplugin", "ÉXITO: Mensaje enviado a $phone para el Ticket #$ticket_id\n");
+        } else {
+            Toolbox::logInFile("watiplugin", "META API Error: " . $response . " | URL: $url\n");
+            Toolbox::logInFile("watiplugin", "DETALLE DEL ERROR META: " . $response . " | HTTP Status: " . $status_line . "\n");        
+        }
+    }
+}
+
+
 function plugin_watiplugin_notification_assign(Ticket $ticket) {
     global $DB;
     Toolbox::logInFile("watiplugin", "Error crítico Ticket: " . $ticket->fields['id'] . "\n");
@@ -166,9 +259,13 @@ function plugin_watiplugin_notification_assign(Ticket $ticket) {
                  Toolbox::logInFile("watiplugin", "Error crítico mensaje:".$mensaje);    
                 $name = !empty($technician->fields['firstname']) ? $technician->fields['firstname'] : $technician->fields['name'];
                 Toolbox::logInFile("watiplugin", "Error crítico name:".$name);
+                Toolbox::logInFile("watiplugin", "Error crítico plataforma:".$config->fields['plataforma']);
                 // 5. Enviar vía WATI
-                plugin_watiplugin_call_wati_api($phone, $mensaje, $config, $ticket->fields['id'],$name);
-                
+                if ($config->fields['plataforma'] == 'WATI') {
+                    plugin_watiplugin_call_wati_api($phone, $mensaje, $config, $ticket->fields['id'],$name);
+                } else if ($config->fields['plataforma'] == 'META') {
+                    plugin_watiplugin_call_meta_api($phone, $mensaje, $config, $ticket->fields['id'],$name);
+                }
             }
         }
         } catch (Throwable $e) {
@@ -220,7 +317,11 @@ function plugin_watiplugin_notification_followup(ITILFollowup $followup) {
     if ($phone) {
         $config = new PluginWatipluginConfig();
         $config->getFromDB(1);
-        plugin_watiplugin_call_wati_api($phone, $mensaje_final, $config, $ticket->fields['id'],$name);
+        if ($config->fields['plataforma'] == 'WATI') {
+            plugin_watiplugin_call_wati_api($phone, $mensaje_final, $config, $ticket->fields['id'],$name);
+        } else if ($config->fields['plataforma'] == 'META') {
+            plugin_watiplugin_call_meta_api($phone, $mensaje_final, $config, $ticket->fields['id'],$name);
+        }
     }
     Toolbox::logInFile("watiplugin", "Error crítico: Pasa el proceso del envío inicial al solicitante\n");
     $tech_id = 0;
@@ -243,7 +344,12 @@ function plugin_watiplugin_notification_followup(ITILFollowup $followup) {
             $mensaje  = "💬 *Nueva respuesta en Ticket #{$ticket->fields['id']}*";
             $mensaje .= "> " . substr($content, 0, 100) . (strlen($content) > 100 ? "..." : "");
             $name = !empty($technician->fields['firstname']) ? $technician->fields['firstname'] : $technician->fields['name'];
-            plugin_watiplugin_call_wati_api($phone, $mensaje, $config, $ticket->fields['id'],$name);
+            if ($config->fields['plataforma'] == 'WATI') {
+                plugin_watiplugin_call_wati_api($phone, $mensaje, $config, $ticket->fields['id'],$name);
+            } else if ($config->fields['plataforma'] == 'META') {
+                plugin_watiplugin_call_meta_api($phone, $mensaje, $config, $ticket->fields['id'],$name);
+            
+            }
         }
     }
 

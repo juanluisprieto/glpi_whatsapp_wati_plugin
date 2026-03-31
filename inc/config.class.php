@@ -21,7 +21,12 @@ class PluginWatipluginConfig extends CommonDBTM {
       return $protocol . "://" . $host;
    }
 
-
+   function dropdownPlataforma($value) {
+      Dropdown::showFromArray("plataforma",
+                        ['WATI' => __('WATI', 'useditemsexport'),
+                              'META' => __('META', 'useditemsexport')],
+                        ['value'  => $value]);
+   }
    function showFormConfig() {
       $this->getFromDB(1);
       
@@ -29,18 +34,38 @@ class PluginWatipluginConfig extends CommonDBTM {
 
       echo "<form action='".$target."' method='post'>";
       echo "<table class='tab_cadre_fixe'>";
-      echo "<tr><th colspan='2'>Configuración API WATI & Plantillas</th></tr>";
+      
+      echo "<tr class='tab_bg_1'>";
+      echo "<td>" . __('Plataforma', 'useditemsexport') . "</td>";
+      echo "<td>";
+         self::dropdownPlataforma($this->fields["plataforma"]);
+      echo "</td>";
+      echo "</tr>";
+
+      echo "<tr><th colspan='2'>Configuración API WATI</th></tr>";
       
       // Campo URL
       echo "<tr class='tab_bg_1'><td>URL de WATI</td>";
       echo "<td><input type='text' name='wati_url' value='".Html::entities_deep($this->fields['wati_url'])."' size='60'>/api/v1/sendTemplateMessage?whatsappNumber=</td></tr>";
       
       // Campo Token
-      echo "<tr class='tab_bg_1'><td>Bearer Token</td>";
+      echo "<tr class='tab_bg_1'><td>Bearer Token WATI</td>";
       echo "<td><textarea name='wati_token' cols='60' rows='3'>".Html::entities_deep($this->fields['wati_token'])."</textarea></td></tr>";
       
+      echo "<tr><th colspan='2'>Configuración API META (Solo salida)</th></tr>";
+      
+   // Campo URL
+      echo "<tr class='tab_bg_1'><td>URL de Meta</td>";
+      echo "<td><input type='text' name='meta_url' value='".Html::entities_deep($this->fields['meta_url'])."' size='60'>/messages</td></tr>";
+      
+      // Campo Token
+      echo "<tr class='tab_bg_1'><td>Bearer Token Meta</td>";
+      echo "<td><textarea name='meta_token' cols='60' rows='3'>".Html::entities_deep($this->fields['meta_token'])."</textarea></td></tr>";
+      
+      echo "<tr><th colspan='2'>Plantilla</th></tr>";
+
       // Campo para el Nombre del Template
-      echo "<td>" . __('Nombre del Template WATI', 'watiplugin') . "</td>";
+      echo "<td>" . __('Nombre del Template', 'watiplugin') . "</td>";
       echo "<td>";
       echo Html::input('wati_template_name', ['value' => $this->fields['wati_template_name'], 'size' => 40]);
 
@@ -52,6 +77,13 @@ class PluginWatipluginConfig extends CommonDBTM {
       Si tiene alguna pregunta, no dude en ponerse en contacto con nosotros.<br/>";
       echo "*Los campos {{name}}, {{ticket}} y {{url}} son requeridos";
       echo "</td></tr>";
+
+
+
+
+
+
+
 
       // Campo para la URL de GLPI
       echo "<tr class='tab_bg_1'>";
