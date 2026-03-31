@@ -25,14 +25,16 @@ function plugin_watiplugin_install() {
    global $DB;
    // 1. Crear tabla de configuración con el estándar BigInt Unsigned
    if (!$DB->tableExists("glpi_plugin_watiplugin_configs")) {
-      $query = "CREATE TABLE `glpi_plugin_watiplugin_configs` (
+   $query = "CREATE TABLE `glpi_plugin_watiplugin_configs` (
                   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
                   `wati_url` varchar(255) DEFAULT NULL,
                   `wati_token` TEXT DEFAULT NULL,
+                  `meta_url` varchar(255) DEFAULT NULL,
+                  `meta_token` TEXT DEFAULT NULL,
                   `glpi_root_path` varchar(255) DEFAULT NULL,
                   `glpi_base_url` VARCHAR(255) DEFAULT NULL,
                   `wati_template_name` VARCHAR(255) DEFAULT NULL,
-
+                  plataforma VARCHAR(50) DEFAULT NULL,
                   PRIMARY KEY (`id`)
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;";
 
